@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -l ncpus=48
+#PBS -l mem=3000GB
+#PBS -l jobfs=200GB
+#PBS -q megamem
+#PBS -P eg3
+#PBS -l walltime=03:00:00
+#PBS -l storage=gdata/hh5+gdata/dk92+gdata/ia39+scratch/eg3
+#PBS -l wd
+#PBS -j oe
+#PBS -o logs
+
+module use /g/data/hh5/public/modules
+module load conda_concept/analysis3-unstable
+module load dask-optimiser
+
+module use /g/data/dk92/apps/Modules/modulefiles
+module load gadi_jupyterlab/23.02
+
+jupyter.ini.sh -D
+
+python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 BOM-BARPA-R projection
+# python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 BOM-BARPA-R validation
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 BOM-BARPA-R projection
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 BOM-BARPA-R validation
+
+# python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 CSIRO-CCAM-2203 projection
+# python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 CSIRO-CCAM-2203 validation
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 CSIRO-CCAM-2203 projection
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 CSIRO-CCAM-2203 validation
+
+# python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 UQ-DES-CCAM-2105 projection
+# python npcp_chunk.py CSIRO-ACCESS-ESM1-5 r6i1p1f1 UQ-DES-CCAM-2105 validation
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 UQ-DES-CCAM-2105 projection
+# python npcp_chunk.py ECMWF-ERA5 r1i1p1f1 UQ-DES-CCAM-2105 validation
